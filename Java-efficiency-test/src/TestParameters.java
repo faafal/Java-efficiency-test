@@ -49,7 +49,10 @@ public class TestParameters {
     }
 
     public static TestParameters getInstance() {
-        return TestParameters.instance == null ? new TestParameters() : TestParameters.instance;
+        if (instance == null) {
+            instance = new TestParameters();
+        }
+        return instance;
     }
 
     public Collection<?> createCollection(){
