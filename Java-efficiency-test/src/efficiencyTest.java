@@ -1,43 +1,23 @@
-import javax.xml.crypto.Data;
-import java.io.IOException;
-import java.time.Duration;
-import java.time.LocalDateTime;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.concurrent.atomic.AtomicReference;
-
 public class efficiencyTest {
     public static void main(String[] args) {
         MenuController menu = MenuController.getInstance();
         TestParameters test = TestParameters.getInstance();
+        CollectionType[] collectionsTypes = CollectionType.class.getEnumConstants();
+        DataType[] dataTypes = DataType.class.getEnumConstants();
 
         int userInput = 0;
-        do {
-            System.out.println("Choose collection type");
-            menu.printEnum(CollectionType.class);
-            userInput = menu.input();
-        } while (
-                !menu.validateInput(Arrays.stream(CollectionType.class.getEnumConstants()).toArray().length, userInput)
-        );
-        test.setCollectionType(CollectionType.class.getEnumConstants()[userInput]);
 
-        userInput = 0;
-        do {
-            System.out.println("Choose data type");
-            menu.printEnum(DataType.class);
-            userInput = menu.input();
-        } while (
-                !menu.validateInput(Arrays.stream(DataType.class.getEnumConstants()).toArray().length, userInput)
-        );
-        test.setDataType(DataType.class.getEnumConstants()[userInput]);
+        do {menu.printEnum("Choose collection type", CollectionType.class);
+        } while ( !menu.validateInput(collectionsTypes.length, userInput = menu.input() ) );
+        test.setCollectionType(collectionsTypes[userInput]);
 
-        userInput = 0;
-        do {
-            System.out.println("Enter number of instances");
-            userInput = menu.input();
-        } while (
-                !menu.validateInput(Integer.MAX_VALUE, userInput)
-        );
+        do {menu.printEnum("Choose data type", DataType.class);
+        } while ( !menu.validateInput(dataTypes.length, userInput = menu.input()) );
+        test.setDataType(dataTypes[userInput]);
+
+        do {System.out.println("Enter number of instances");
+        } while (!menu.validateInput(Integer.MAX_VALUE, userInput = menu.input()));
         test.setNumberOfObjects(userInput);
+        
     }
 }
