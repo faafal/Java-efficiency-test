@@ -26,5 +26,18 @@ public class MenuController {
         return input;
     }
 
-    public void print(){}
+    public <T extends Enum<T>> void printEnum(Class<T> enumType){
+        int optionNumber = 1;
+        for(T constant : enumType.getEnumConstants()){
+            System.out.println("" + optionNumber++ + ". " + constant);
+        }
+    }
+
+    public boolean validateInput(int upperBound, int userInput){
+        if(userInput < 0 || userInput > upperBound){
+            System.out.println("There is no such an option");
+            return false;
+        }
+        return true;
+    }
 }
