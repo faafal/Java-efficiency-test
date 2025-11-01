@@ -26,7 +26,8 @@ public class MenuController {
         return input;
     }
 
-    public <T extends Enum<T>> void printEnum(Class<T> enumType){
+    public <T extends Enum<T>> void printEnum(String text, Class<T> enumType){
+        System.out.println(text);
         int optionNumber = 1;
         for(T constant : enumType.getEnumConstants()){
             System.out.println("" + optionNumber++ + ". " + constant);
