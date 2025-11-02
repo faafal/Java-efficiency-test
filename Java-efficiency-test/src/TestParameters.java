@@ -8,11 +8,13 @@ public class TestParameters {
     private DataType dataType;
     private CollectionType collectionType;
     private int numberOfObjects;
+    private long testDuration;
 
     private TestParameters() {
         this.collectionType = CollectionType.ARRAY_LIST;
         this.dataType = DataType.INTEGER;
         this.numberOfObjects = 100;
+        this.testDuration = 0;
     }
 
     public static TestParameters getInstance() {
@@ -22,14 +24,16 @@ public class TestParameters {
         return instance;
     }
 
-    public Collection<?> createCollection(){
+    public Collection<?> startTest() {
         Supplier<?> dataSupplier = dataType.getDataSupplier();
         Collector<Object, ?, Collection<Object>> collectorSupplier = collectionType.getCollector();
-
-        return Stream
+        long start = System.currentTimeMillis();
+        Collection<?> collection = Stream
                 .generate(dataSupplier)
                 .limit(this.numberOfObjects)
                 .collect(collectorSupplier);
+        this.testDuration = System.currentTimeMillis() - start;
+        return collection;
     }
 
     public void setDataType(DataType dataType) {
@@ -50,5 +54,8 @@ public class TestParameters {
     }
     public int getNumberOfObjects() {
         return numberOfObjects;
+    }
+    public long getTestDuration() {
+        return testDuration;
     }
 }
