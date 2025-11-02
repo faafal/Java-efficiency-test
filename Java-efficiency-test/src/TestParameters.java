@@ -9,6 +9,7 @@ public class TestParameters {
     private CollectionType collectionType;
     private int numberOfObjects;
     private long testDuration;
+    private Collection<?> collection;
 
     private TestParameters() {
         this.collectionType = CollectionType.ARRAY_LIST;
@@ -24,16 +25,15 @@ public class TestParameters {
         return instance;
     }
 
-    public Collection<?> startTest() {
+    public void startTest() {
         Supplier<?> dataSupplier = dataType.getDataSupplier();
         Collector<Object, ?, Collection<Object>> collectorSupplier = collectionType.getCollector();
         long start = System.currentTimeMillis();
-        Collection<?> collection = Stream
+        this.collection = Stream
                 .generate(dataSupplier)
                 .limit(this.numberOfObjects)
                 .collect(collectorSupplier);
         this.testDuration = System.currentTimeMillis() - start;
-        return collection;
     }
 
     public void setDataType(DataType dataType) {
