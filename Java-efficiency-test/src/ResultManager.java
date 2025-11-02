@@ -2,7 +2,7 @@ import java.util.ArrayList;
 
 public class ResultManager {
     private static ResultManager instance;
-    private static String[] header = new String[]{
+    private static final String[] header = new String[]{
             "Data type","Collection Type","Number of instances","Creation time"
     };
 

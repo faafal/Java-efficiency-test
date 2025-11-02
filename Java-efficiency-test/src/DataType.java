@@ -3,7 +3,8 @@ import java.util.function.Supplier;
 
 public enum DataType {
     INTEGER("Integer",() -> new Random().nextInt()),
-    DOUBLE("Double",() -> new Random().nextDouble());
+    DOUBLE("Double",() -> new Random().nextDouble()),
+    PERSON("Person",Person::new);
 
     private final Supplier<?> dataSupplier;
     private final String label;
