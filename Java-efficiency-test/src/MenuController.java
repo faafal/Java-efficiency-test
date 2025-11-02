@@ -17,11 +17,11 @@ public class MenuController {
     }
 
     public int input() {
-        int input = 0;
+        int input = -1;
         try {
             input = sc.nextInt();
         } catch (InputMismatchException e) {
-            System.out.println("It's not a number! Try again.");
+            sc.nextLine();
         }
         return input;
     }
@@ -35,10 +35,36 @@ public class MenuController {
     }
 
     public boolean validateInput(int upperBound, int userInput) {
-        if (userInput < 0 || userInput >= upperBound) {
-            System.out.println("There is no such an option");
-            return false;
-        }
-        return true;
+        return userInput >= 0 && userInput < upperBound;
     }
+
+    public <T extends Enum<T>> T chooseEnum(String message, Class<T> enumType) {
+        T[] values = enumType.getEnumConstants();
+        int choice;
+        boolean invalid;
+        do {
+            printEnum(message, enumType);
+            choice = input() - 1;
+            invalid = !validateInput(values.length, choice);
+            if (invalid) {
+                System.out.println("There is no such option");
+            }
+        } while (invalid);
+        return values[choice];
+    }
+
+    public int chooseInt(String message, int max) {
+        int value;
+        boolean invalid;
+        do {
+            System.out.println(message);
+            value = input();
+            invalid = !validateInput(max, value);
+            if (invalid) {
+                System.out.println("Invalid number, try again!");
+            }
+        } while (invalid);
+        return value;
+    }
+
 }
