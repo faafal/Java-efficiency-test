@@ -66,5 +66,4 @@ public class MenuController {
         } while (invalid);
         return value;
     }
-
 }
