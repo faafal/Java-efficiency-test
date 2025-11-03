@@ -39,5 +39,5 @@ bin/
 
 .idea
 *.iml
-.log
-.csv
+*.log
+*.csv
