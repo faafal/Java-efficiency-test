@@ -1,3 +1,5 @@
+import java.util.Arrays;
+
 public class ResultManager {
     private static ResultManager instance;
     private final CSVManager csvManager;
@@ -16,30 +18,15 @@ public class ResultManager {
         return ResultManager.instance;
     }
 
-    public void printResults(TestParameters test){
-        int widthCounter = 0;
-        for (String word : header) {
-            System.out.printf("%-" + word.length() + "s | ", word);
-            widthCounter += word.length() + 3;
-        }
-        System.out.println();
-        for (int i = 0; i < widthCounter; i++)
-            System.out.print("-");
-        System.out.println();
+    public void printAll(){
+        String[][] data = csvManager.readAll();
 
-        String[] results = {
-                test.getDataType().toString(),
-                test.getCollectionType().toString(),
-                String.valueOf(test.getNumberOfObjects()),
-                test.getTestDuration() + " ns"
-        };
-        for (int i = 0; i < results.length; i++) {
-            System.out.printf("%-" + header[i].length() + "s | ", results[i]);
+        String[][] rows = data;
+        if (data.length > 0 && data[0].length == header.length && Arrays.equals(data[0], header)) {
+            rows = Arrays.copyOfRange(data, 1, data.length);
         }
-        System.out.println();
-        for (int i = 0; i < widthCounter; i++)
-            System.out.print("-");
-        System.out.println();
+
+        TablePrinter.printTable(header, rows);
     }
 
     public void saveResults(TestParameters test){

@@ -1,4 +1,7 @@
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.List;
 
 public class CSVManager {
     private static final String BASE_NAME = "results";
@@ -89,5 +92,16 @@ public class CSVManager {
         writeToCSV(sb.toString());
     }
 
-    //    public String[][] readAll(){}
+    public String[][] readAll(){
+        try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
+            List<String> lines = Files.readAllLines(Paths.get(filePath));
+            String[][] data = new String[lines.size()][];
+            for (int i = 0; i < lines.size(); i++) {
+                data[i] = lines.get(i).trim().split(",");
+            }
+            return data;
+        }catch (IOException e){
+            throw new RuntimeException("Błąd podczas czytania pliku CSV: " + e.getMessage(), e);
+        }
+    }
 }
