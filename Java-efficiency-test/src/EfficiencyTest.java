@@ -11,10 +11,10 @@ public class EfficiencyTest {
 //        test.setDataType(menu.chooseEnum("Choose data type", DataType.class));
 //        test.setNumberOfObjects(menu.chooseInt("Enter number of instances", Integer.MAX_VALUE));
 
-        for(int i = 0 ; i < 100; i++){
+        for(int i = 0 ; i < 10; i++){
             test.setDataType(DataType.values()[ThreadLocalRandom.current().nextInt(DataType.values().length)]);
             test.setCollectionType(CollectionType.values()[ThreadLocalRandom.current().nextInt(CollectionType.values().length)]);
-            test.setNumberOfObjects(ThreadLocalRandom.current().nextInt(100, 10_001));
+            test.setNumberOfObjects(ThreadLocalRandom.current().nextInt(1_000_000, 10_000_000));
             test.startTest();
             results.saveResults(test);
         }
