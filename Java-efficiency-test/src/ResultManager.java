@@ -39,11 +39,12 @@ public class ResultManager {
         System.out.println();
         for (int i = 0; i < widthCounter; i++)
             System.out.print("-");
+        System.out.println();
     }
 
     public void saveResults(TestParameters test){
         String[] row = buildRow(test);
-//        csvManager.appendCsvLine(row);
+        csvManager.appendCsvLine(row);
     }
 
     private String[] buildRow(TestParameters test) {
@@ -55,5 +56,7 @@ public class ResultManager {
         };
     }
 
-
+    public static String[] getHeader(){
+        return header;
+    }
 }
