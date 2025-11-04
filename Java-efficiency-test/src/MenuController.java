@@ -26,6 +26,16 @@ public class MenuController {
         return input;
     }
 
+    public long inputLong() {
+        long input = -1;
+        try {
+            input = sc.nextLong();
+        } catch (InputMismatchException e) {
+            sc.nextLine();
+        }
+        return input;
+    }
+
     public <T extends Enum<T>> void printEnum(String text, Class<T> enumType) {
         System.out.println(text);
         int optionNumber = 1;
@@ -34,7 +44,7 @@ public class MenuController {
         }
     }
 
-    public boolean validateInput(int upperBound, int userInput) {
+    public boolean validateInput(long upperBound, long userInput) {
         return userInput >= 0 && userInput < upperBound;
     }
 
@@ -53,12 +63,12 @@ public class MenuController {
         return values[choice];
     }
 
-    public int chooseInt(String message, int max) {
-        int value;
+    public long chooseNumber(String message, long max) {
+        long value;
         boolean invalid;
         do {
             System.out.println(message);
-            value = input();
+            value = inputLong();
             invalid = !validateInput(max, value);
             if (invalid) {
                 System.out.println("Invalid number, try again!");
