@@ -2,8 +2,10 @@ import java.util.Random;
 import java.util.function.Supplier;
 
 public enum DataType {
+    BOOLEAN("Boolean",() -> new Random().nextBoolean()),
     INTEGER("Integer",() -> new Random().nextInt()),
     DOUBLE("Double",() -> new Random().nextDouble()),
+    LONG("Long",() -> new Random().nextLong()),
     PERSON("Person",Person::new),
     COLOR("Color", Color::new);
 
